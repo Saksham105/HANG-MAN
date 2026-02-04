@@ -1,0 +1,10 @@
+1
+fruit
+APPLE
+keeps doctor away
+HangmanFigure
+2
+person
+CHHATRAPATI
+father of Indian navy
+HangmanFigure
