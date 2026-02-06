@@ -1,10 +1,100 @@
 1
-fruit
-APPLE
-keeps doctor away
+Programming Language
+JAVA
+named on a coffee name
 HangmanFigure
 2
-person
-CHHATRAPATI
-father of Indian navy
+Datatype
+INTEGER
+stores a number value
+HangmanFigure
+3
+Loop Structure
+WHILE
+not a for-loop
+HangmanFigure
+4
+Conditional Keyword
+IF
+works with 'else'
+HangmanFigure
+5
+Source Code editor
+VSCODE
+1st choice of every programmer
+HangmanFigure
+6
+Bug fixing process
+DEBUGGING
+nightmare of every programmer
+HangmanFigure
+7
+Computer's brain
+PROCESSOR
+contains CPU
+HangmanFigure
+8
+Binary Digit
+BIT
+smallest unit of Binary Digit
+HangmanFigure
+9
+Internet Protocol
+HTTP
+that allow your browser to talk to a server
+HangmanFigure
+10
+Keyboard Key
+ENTER
+key which is pressed very harshly
+HangmanFigure
+11
+Object Oriented principle
+INHERITANCE
+works on 'IS-A' relation
+HangmanFigure
+12
+Memory allocation type
+DYNAMIC
+have to handle manually in C/C++ language
+HangmanFigure
+13
+STL container
+VECTOR
+dynamically resizablel array
+HangmanFigure
+14
+Pointer Operation
+DEREFERENCE
+can access value on stored address
+HangmanFigure
+15
+Function overloading concept
+POLYMORPHISM
+static / early binding
+HangmanFigure
+16
+Compile time error
+SYNTAX
+occurs on mistake in syntax
+HangmanFigure
+17
+Runtime error
+EXCEPTION
+handled in try-catch
+HangmanFigure
+18
+Data Structures
+LINKEDLIST
+stored data sequentially in nodes
+HangmanFigure
+19
+Searching technique
+BINARY
+search using O(log n) time complexity
+HangmanFigure
+20
+Sorting algorithm
+QUICK
+best sorting algorithm
 HangmanFigure

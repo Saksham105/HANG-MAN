@@ -75,6 +75,9 @@ bool Level::play() {
      * if failed tries reaches, declare failed.
      */
 
+    /* reset the user guess */
+    user_guess = "";
+
     std::string dummy_word = game.getWord();
 
     /* sort the character sequence */
@@ -107,6 +110,9 @@ bool Level::play() {
         }
 
         const std::string& actual_word = game.getWord();
+        if(user_guess == actual_word){
+            return this->win = true;
+        }
         std::cout << "\n\tWord: ";
         for (char c : actual_word) {
             if (user_guess.find(c) != std::string::npos)
@@ -156,8 +162,6 @@ bool Level::play() {
 
         std::cout << "\n\tYou have to guess a: " << game.getKeyword() << std::endl;
     }
-    /* reset the user guess */
-    user_guess = "";
 
     return this->win = false;
 }

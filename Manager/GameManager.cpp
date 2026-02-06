@@ -284,7 +284,7 @@ void GameManager::deleteAccount(const Player &player) {
     }
 }
 
-void GameManager::changeName(const Player &player, const std::string &name) {
+bool GameManager::changeName(Player &player, const std::string &name) {
     auto it = std::find_if(players.begin(), players.end(),
                            [&](const Player &p) {
                                return p.getName() == player.getName() &&
@@ -292,10 +292,13 @@ void GameManager::changeName(const Player &player, const std::string &name) {
                            });
     if(it != players.end()) {
         (*it).setName(name);
+        player.setName(name);
+        return true;
     }
+    return false;
 }
 
-void GameManager::changeEmail(const Player &player, const std::string &email) {
+bool GameManager::changeEmail(Player &player, const std::string &email) {
     auto it = std::find_if(players.begin(), players.end(),
                            [&](const Player &p) {
                                return p.getName() == player.getName() &&
@@ -303,10 +306,13 @@ void GameManager::changeEmail(const Player &player, const std::string &email) {
                            });
     if(it != players.end()) {
         (*it).setEmail(email);
+        player.setEmail(email);
+        return true;
     }
+    return false;
 }
 
-void GameManager::resetGame(const Player &player) {
+bool GameManager::resetGame(Player &player) {
     auto it = std::find_if(players.begin(), players.end(),
                            [&](const Player &p) {
                                return p.getName() == player.getName() &&
@@ -315,7 +321,11 @@ void GameManager::resetGame(const Player &player) {
     if(it != players.end()) {
         (*it).unlockNewLevel(Level()); // reset level
         (*it).resetCompletedLevelCount();
+        player.unlockNewLevel(Level());
+        player.resetCompletedLevelCount();
+        return true;
     }
+    return false;
 }
 
 std::size_t GameManager::getPoints(const Player &player) {

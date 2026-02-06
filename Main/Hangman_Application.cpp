@@ -3,7 +3,7 @@
 #include <string> // for dealing with string
 #include <cstdlib> // for exit() function
 
-#include "../Test/Manager/GameManager.hpp"
+#include "../Manager/GameManager.hpp"
 
 /* if already define in system, then only... */
 #ifdef _WIN32
@@ -355,8 +355,11 @@ int main() {
                             std::cout << "\n\tEnter player name: ";
                             getline(std::cin, player_name);
 
-                            hangman.changeName(registeredPlayer, player_name);
-                            std::cout << "\n\tPLAYER NAME CHANGED SUCCESSFULLY." << std::endl;
+                            if(hangman.changeName(registeredPlayer, player_name)) {
+                                std::cout << "\n\tPLAYER NAME CHANGED SUCCESSFULLY." << std::endl;
+                            } else {
+                                std::cerr << "\n\tUNABLE TO CHANGE PLAYER NAME." << std::endl;
+                            }
 
                             break;
                         }
@@ -366,16 +369,22 @@ int main() {
                             std::cout << "\n\tEnter player email: ";
                             getline(std::cin, player_email);
 
-                            hangman.changeEmail(registeredPlayer, player_email);
-                            std::cout << "\n\tPLAYER EMAIL CHANGED SUCCESSFULLY." << std::endl;
+                            if(hangman.changeEmail(registeredPlayer, player_email)) {
+                                std::cout << "\n\tPLAYER EMAIL CHANGED SUCCESSFULLY." << std::endl;
+                            } else {
+                                std::cerr << "\n\tUNABLE TO CHANGE PLAYER EMAIL." << std::endl;
+                            }
 
                             break;
                         }
 
                         case 6:
                         {
-                            hangman.resetGame(registeredPlayer);
-                            std::cout << "\n\tGAME RESET SUCCESSFULLY." << std::endl;
+                            if(hangman.resetGame(registeredPlayer)) {
+                                std::cout << "\n\tGAME RESET SUCCESSFULLY." << std::endl;
+                            } else {
+                                std::cerr << "\n\tUNABLE TO RESET GAME." << std::endl;
+                            }
 
                             break;
                         }

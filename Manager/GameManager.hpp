@@ -193,20 +193,20 @@ public:
      * @param player reference to Player
      * @param name new name for player
      */
-    void changeName(const Player &player, const std::string &name);
+    bool changeName(Player &player, const std::string &name);
 
     /**
      * @brief update player email
      * @param player reference to Player
      * @param name new email for player
      */
-    void changeEmail(const Player &player, const std::string &email);
+    bool changeEmail(Player &player, const std::string &email);
 
     /**
      * @brief reset the game for a player
      * @param player reference to Player
      */
-    void resetGame(const Player &player);
+    bool resetGame(Player &player);
 
     /**
      * @brief returns points of a player
