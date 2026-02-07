@@ -182,7 +182,7 @@ int main() {
                             break;
 
                         case 3:
-                            std::cout << "Total levels available: " << hangman.getLevelCount() << std::endl;
+                            std::cout << "\n\tTotal levels available: " << hangman.getLevelCount() << std::endl;
 
                             break;
 

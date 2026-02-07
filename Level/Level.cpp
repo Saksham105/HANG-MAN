@@ -92,16 +92,17 @@ bool Level::play() {
     int failed_user_try = 0;
 
     // ask once if player wants to see the hint during the game
-    bool showHint = false;
+    bool showHint = true; // always show hint.
+    // bool showHint = false; // always show hint.
     char hintChoice;
 
     std::cout << "\n\tYou have to guess a: " << game.getKeyword() << std::endl;
 
-    std::cout << "\tDo you want to see hint while playing? (y/n): ";
-    std::cin >> hintChoice;
-    if (hintChoice == 'y' || hintChoice == 'Y') {
-        showHint = true;
-    }
+    // std::cout << "\tDo you want to see hint while playing? (y/n): ";
+    // std::cin >> hintChoice;
+    // if (hintChoice == 'y' || hintChoice == 'Y') {
+    //     showHint = true;
+    // }
 
     while (failed_user_try <= 5) {
 

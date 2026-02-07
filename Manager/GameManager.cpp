@@ -396,5 +396,6 @@ void GameManager::startGame(Player &player) {
             std::cout << "\tdo you want to restart playing (1/0)? ";
             std::cin >> wantContinue;
         }
+        std::cin.ignore();
     } while (wantContinue);
 }
