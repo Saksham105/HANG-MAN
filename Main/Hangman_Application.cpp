@@ -31,7 +31,7 @@ void showBanner() {
     std::cout << GREEN;
 
     /* Opens the banner text file in read mode */
-    std::string fileName = "Main/title_page.txt";
+    std::string fileName = "Data/title_page.txt";
     std::ifstream file(fileName);
     if(!file.is_open()) {
         std::cerr << "\tunable to open banner [" << fileName << "]." << std::endl;
