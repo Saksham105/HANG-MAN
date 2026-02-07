@@ -18,8 +18,8 @@
 #define CYAN "\033[1;36m"
 #define DEFAULT "\033[0m"
 
-#define LEVEL_FILE "level_file.txt"
-#define PLAYER_FILE "player_file.txt"
+#define LEVEL_FILE "Data/level_file.txt"
+#define PLAYER_FILE "Data/player_file.txt"
 
 /*
     the GCC specific compiler extension which mark a function to execute before main()
