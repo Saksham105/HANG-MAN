@@ -18,6 +18,11 @@ public:
     void drawFigure(int tries) override ;
 
     /**
+     * @brief Draws the figure when user guess it correct and won the game.
+     */
+    virtual void winFigure() override ;
+
+    /**
      * @brief returns the current class name as string
      * @return name of the Figure
      */

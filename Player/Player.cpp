@@ -87,8 +87,8 @@ std::size_t Player::getTotalPlayerCount() {
 }
 
 std::ostream& operator<<(std::ostream &out, const Player &player) {
-    out << "\tPlayer name: " << player.name << std::endl
-        << "\tPlayer email " << player.email << std::endl
-        << "\tScore: " << player.completed_level_count << std::endl;
+    out << "\n\t\tPlayer name: " << player.name << std::endl
+        << "\t\tPlayer email " << player.email << std::endl
+        << "\t\tScore: " << player.completed_level_count << std::endl;
     return out;
 }

@@ -98,3 +98,228 @@ Sorting algorithm
 QUICK
 best sorting algorithm
 HangmanFigure
+21
+Operating System
+WINDOWS
+popular desktop operating system
+HangmanFigure
+22
+Programming Tool
+COMPILER
+translates source code to machine code
+HangmanFigure
+23
+Input Device
+KEYBOARD
+used to type characters
+HangmanFigure
+24
+Output Device
+MONITOR
+used to display output
+HangmanFigure
+25
+Programming Symbol
+SEMICOLON
+ends a statement in many languages
+HangmanFigure
+26
+File Type
+SOURCE
+contains program code
+HangmanFigure
+27
+Programming Action
+EXECUTE
+runs the program
+HangmanFigure
+28
+Common Shortcut Key
+CONTROL
+used with other keys
+HangmanFigure
+29
+Data Representation
+BINARY
+uses 0 and 1
+HangmanFigure
+30
+Computer Memory
+RAM
+temporary memory storage
+HangmanFigure
+31
+Programming Concept
+ENCAPSULATION
+binds data and methods together
+HangmanFigure
+32
+Error Type
+LOGICAL
+program runs but gives wrong output
+HangmanFigure
+33
+Software Component
+LIBRARY
+collection of reusable code
+HangmanFigure
+34
+Access Modifier
+PRIVATE
+restricts data access
+HangmanFigure
+35
+Programming Paradigm
+OBJECTORIENTED
+uses classes and objects
+HangmanFigure
+36
+File Handling Mode
+APPEND
+adds data at the end of file
+HangmanFigure
+37
+Control Structure
+SWITCH
+used for multiple conditions
+HangmanFigure
+38
+Development Process
+TESTING
+finds defects in software
+HangmanFigure
+39
+Code Quality Term
+READABILITY
+how easy code is to understand
+HangmanFigure
+40
+Programming Feature
+RECURSION
+function calling itself
+HangmanFigure
+41
+Data Structure Type
+STACK
+follows LIFO principle
+HangmanFigure
+42
+Data Structure Type
+QUEUE
+follows FIFO principle
+HangmanFigure
+43
+Program Execution Phase
+COMPILATION
+checks syntax errors
+HangmanFigure
+44
+Memory Concept
+ALLOCATION
+reserves memory space
+HangmanFigure
+45
+Software Tool
+DEBUGGER
+helps find bugs
+HangmanFigure
+46
+Object Oriented Concept
+ABSTRACTION
+hides internal implementation
+HangmanFigure
+47
+Software Design Principle
+MODULARITY
+divides system into modules
+HangmanFigure
+48
+Error Condition
+SEGMENTATIONFAULT
+accessing invalid memory
+HangmanFigure
+49
+Programming Technique
+MULTITHREADING
+executes tasks in parallel
+HangmanFigure
+50
+Software Architecture
+MICROSERVICES
+independent deployable services
+HangmanFigure
+51
+Programming Property
+IMMUTABILITY
+data cannot be modified
+HangmanFigure
+52
+Memory Management Issue
+MEMORYLEAK
+unused memory not released
+HangmanFigure
+53
+Software Quality Attribute
+SCALABILITY
+handles increasing workload
+HangmanFigure
+54
+System Programming Term
+SYNCHRONIZATION
+controls thread execution
+HangmanFigure
+55
+Advanced Concept
+VIRTUALIZATION
+creates virtual systems
+HangmanFigure
+56
+Programming Language Feature
+TEMPLATES
+generic programming support
+HangmanFigure
+57
+Software Engineering Term
+MAINTAINABILITY
+ease of modifying software
+HangmanFigure
+58
+Performance Issue
+BOTTLENECK
+limits system performance
+HangmanFigure
+59
+Advanced Data Structure
+HASHTABLE
+stores key value pairs
+HangmanFigure
+60
+Software Testing Type
+INTEGRATIONTESTING
+tests combined modules
+HangmanFigure
+61
+Computer Science Field
+ARTIFICIALINTELLIGENCE
+machines mimicking human intelligence
+HangmanFigure
+62
+Programming Principle
+DEPENDENCYINJECTION
+reduces tight coupling
+HangmanFigure
+63
+Advanced Architecture
+DISTRIBUTEDSYSTEM
+runs on multiple machines
+HangmanFigure
+64
+Security Concept
+AUTHENTICATION
+verifies user identity
+HangmanFigure
+65
+Software Development Model
+CONTINUOUSINTEGRATION
+automated build and testing
+HangmanFigure

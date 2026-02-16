@@ -39,6 +39,9 @@ void GameManager::addNewLevel(Level &level) {
 }
 
 void GameManager::removeLevel(int id) {
+    if(levels.find(id) == levels.end()){
+        throw new std::runtime_error("level not found.!");
+    }
     levels.erase(id);
 }
 
@@ -47,6 +50,10 @@ std::size_t GameManager::getLevelCount() {
 }
 
 void GameManager::changeKeyword(int id, const std::string &keyword) {
+    if(levels.find(id) == levels.end()){
+        throw new std::runtime_error("level not found.!");
+    }
+
     Level &l = levels[id];
 
     /* checking if the level already exists */
@@ -58,6 +65,10 @@ void GameManager::changeKeyword(int id, const std::string &keyword) {
 }
 
 void GameManager::changeWord(int id, const std::string &word) {
+    if(levels.find(id) == levels.end()){
+        throw new std::runtime_error("level not found.!");
+    }
+
     Level &l = levels[id];
 
     /* checking if the level already exists */
@@ -69,6 +80,10 @@ void GameManager::changeWord(int id, const std::string &word) {
 }
 
 void GameManager::changeHint(int id, const std::string &hint) {
+    if(levels.find(id) == levels.end()){
+        throw new std::runtime_error("level not found.!");
+    }
+
     Level &l = levels[id];
 
     /* checking if the level already exists */
@@ -98,9 +113,11 @@ void GameManager::removePlayer(const Player &player) {
                                return p.getName() == player.getName() &&
                                       p.getEmail() == player.getEmail();
                            });
-    if(it != players.end()){
-        players.erase(it);
+    if(it == players.end()){
+        throw new std::runtime_error("player not found.!");
     }
+    
+    players.erase(it);
 }
 
 void GameManager::removeAllGuestPlayers() {
@@ -127,16 +144,18 @@ const Player GameManager::getPlayerByNameEmail(const std::string &name, const st
 
 std::string GameManager::generateReport() {
     std::string level_report = "\n\tTotal level count: " + std::to_string(levels.size());
-    std::string player_report = "\n\tTotal registered players count: " + std::to_string(Player::getTotalPlayerCount());
+    std::string player_report = "\n\tTotal registered players: " + std::to_string(players.size());
 
-    std::cout << level_report << player_report << std::endl;
+    std::cout << YELLOW << "\n\tTotal level count: " << CYAN << levels.size() << RESET << std::endl;
+    std::cout << YELLOW << "\tTotal registered players: " << CYAN << players.size() << RESET << std::endl;
+
     return level_report + player_report;
 }
 
 void GameManager::uploadLevels(const char *filename) {
     std::ofstream fout(filename);
     if(!fout.is_open()) {
-        std::cerr << "\tError in opening file: [" << filename << "].!" << std::endl;
+        std::cerr << "\033[1m" << "\033[31m" << "\tError in opening file: [" << filename << "].!" << std::endl << "\033[0m";
         return;
     }
 
@@ -163,7 +182,7 @@ void GameManager::uploadLevels(const char *filename) {
 void GameManager::downloadLevels(const char *filename) {
     std::ifstream fin(filename);
     if(!fin.is_open()) {
-        std::cerr << "\tError in opening file: [" << filename << "].!" << std::endl;
+        std::cerr << "\033[1m" << "\033[31m" << "\tError in opening file: [" << filename << "].!" << std::endl << "\033[0m";
         return;
     }
 
@@ -203,7 +222,7 @@ void GameManager::downloadLevels(const char *filename) {
 void GameManager::uploadPlayers(const char *filename) {
     std::ofstream fout(filename);
     if(!fout.is_open()) {
-        std::cerr << "\tError in opening file: [" << filename << "].!" << std::endl;
+        std::cerr << "\033[1m" << "\033[31m" << "\tError in opening file: [" << filename << "].!" << std::endl << "\033[0m";
         return;
     }
 
@@ -219,7 +238,7 @@ void GameManager::uploadPlayers(const char *filename) {
 void GameManager::downloadPlayers(const char *filename) {
     std::ifstream fin(filename);
     if(!fin.is_open()) {
-        std::cerr << "\tError in opening file: [" << filename << "].!" << std::endl;
+        std::cerr << "\033[1m" << "\033[31m" << "\tError in opening file: [" << filename << "].!" << std::endl << "\033[0m";
         return;
     }
 
@@ -347,35 +366,35 @@ void GameManager::startGame(Player &player) {
         player.unlockNewLevel(levels.at(1));
         Level level = player.getUnlockedLevel();
 
-        std::cout << "\n\tLet's start game..." << std::endl;
+        std::cout << YELLOW << "\n\tLet's start game..." << std::endl;
         if(level.play()) {
-            std::cout << "\n\tCONGRATULATIONS!, you won the game..." << std::endl;
+            std::cout << GREEN << "\n\tCONGRATULATIONS!, you won the game..." << std::endl << YELLOW;
         } else {
-            std::cout << "\tOOPs!, you lost the game.!" << std::endl;
+            std::cout << BOLD << RED << "\tOOPs!, you lost the game.!" << std::endl << YELLOW;
         }
 
         return; // end the function for guest player.
     }
 
     // continue playing until user ends the game
-    int wantContinue = 0;
+    std::string wantContinue = "";
     do {
         // set new level
         int current_level = player.getCompletedLevelCount();
         auto it = levels.find(current_level + 1);
         if (it == levels.end()) {
-            std::cout << "\n\tNo more levels available.\n";
+            std::cout << BOLD << RED << "\n\tNo more levels available.\n" << YELLOW;
             break;
         }
         Level &level = it->second;
         player.unlockNewLevel(Level(level.getChallenge(), level.getFigure()));
 
-        std::cout << "\tEnter to start level: " << (current_level + 1) << " ...";
+        std::cout << YELLOW << "\tEnter to start level: " << (current_level + 1) << " ..." << RESET;
         getc(stdin);
 
-        std::cout << "\tLet's start game..." << std::endl;
+        std::cout << YELLOW << "\tLet's start game..." << RESET << std::endl;
         if(level.play()) {
-            std::cout << "\n\tCONGRATULATIONS!, you won the game..." << std::endl;
+            std::cout << GREEN << "\n\tCONGRATULATIONS!, you won the game..." << std::endl << YELLOW;
             player.setCompletedLevelCount((current_level+1)); // update current level count for player
 
             // sync updated count back to manager's stored players list
@@ -388,14 +407,16 @@ void GameManager::startGame(Player &player) {
                 (*it).setCompletedLevelCount(player.getCompletedLevelCount());
             }
 
-            std::cout << "\tdo you want to continue playing (1/0)? ";
+            std::cout << "\tdo you want to continue playing (y/n)? ";
             std::cin >> wantContinue;
         } else {
-            std::cout << "\tOOPs!, you lost the game.!" << std::endl;
+            std::cout << BOLD << RED << "\tOOPs!, you lost the game.!" << std::endl << YELLOW;
 
-            std::cout << "\tdo you want to restart playing (1/0)? ";
+            std::cout << "\tdo you want to restart playing (y/n)? ";
             std::cin >> wantContinue;
         }
+
         std::cin.ignore();
-    } while (wantContinue);
+        
+    } while (wantContinue[0] == 'y' || wantContinue[0] == 'Y');
 }

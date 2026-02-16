@@ -8,9 +8,10 @@ Level::Level() : figure(nullptr) {}
 Level::Level(const Challenge &game, Figure *figure)
     : game(game), win(false), figure(figure) {}
 
-Level::Level(const Level &level) : figure(nullptr) {
+Level::Level(const Level &level) {
     this->game = level.game;
     this->win = level.win;
+    this->figure = new HangmanFigure();
 }
 
 Level::~Level() {
@@ -62,107 +63,137 @@ void Level::showAlphabets() {
         }
     }
 
-    std::cout << "\t" << keyboard << std::endl;
+    std::cout << "\t" << CYAN << keyboard << std::endl << RESET;
 }
 
 bool Level::play() {
-    /**
-     * while storing in Challenge object: convert the word in game to uppercase. (done)
-     * while playing: remove all duplicate letters from the word.
-     * ask user to guess letters one by one.
-     * compare it in actual word.
-     * if size matches, declare won.
-     * if failed tries reaches, declare failed.
-     */
 
-    /* reset the user guess */
+    /* Reset previously guessed characters */
     user_guess = "";
 
+    /* Get the actual word to be guessed (already in uppercase) */
     std::string dummy_word = game.getWord();
 
-    /* sort the character sequence */
+    /* Sort characters so that duplicates can be removed easily */
     std::sort(dummy_word.begin(), dummy_word.end());
 
-    /* move all unique letters to the front of sequence */
+    /* Move unique characters to the front */
     std::string::iterator last = std::unique(dummy_word.begin(), dummy_word.end());
 
-    /* remove the duplicate occurances at the last of the string */
+    /* Erase duplicate characters from the end */
     dummy_word.erase(last, dummy_word.end());
 
+    /* Counter to track wrong guesses */
     int failed_user_try = 0;
 
-    // ask once if player wants to see the hint during the game
-    bool showHint = true; // always show hint.
-    // bool showHint = false; // always show hint.
-    char hintChoice;
+    /* Display keyword/category once at the start */
+    std::cout << MAGENTA << "\n\tYou have to guess a:" << YELLOW << "\n\tKEYWORD: " <<CYAN << game.getKeyword() << std::endl << RESET;
 
-    std::cout << "\n\tYou have to guess a: " << game.getKeyword() << std::endl;
-
-    // std::cout << "\tDo you want to see hint while playing? (y/n): ";
-    // std::cin >> hintChoice;
-    // if (hintChoice == 'y' || hintChoice == 'Y') {
-    //     showHint = true;
-    // }
-
+    /* Main game loop: runs until max failed tries */
     while (failed_user_try <= 5) {
 
-        if (showHint) {
-            std::cout << "\tHINT: " << game.getHint() << std::endl;
-        }
+        /* Display hint */
+        std::cout << YELLOW << "\tHINT:\t " << CYAN << game.getHint() << std::endl << RESET;
+        
 
+        /* Reference to the actual word */
         const std::string& actual_word = game.getWord();
-        if(user_guess == actual_word){
-            return this->win = true;
-        }
-        std::cout << "\n\tWord: ";
+
+        /* Display the current guessed state of the word */
+        std::cout << YELLOW <<  "\n\tWord: ";
+        std::cout << BG_GREEN;
         for (char c : actual_word) {
             if (user_guess.find(c) != std::string::npos)
-                std::cout << c << ' ';
+                std::cout << BLACK << c << ' ';   // already guessed
             else
-                std::cout << "_ ";
+                std::cout << BLUE << "_ ";      // not guessed yet
         }
-        std::cout << std::endl;
+        std::cout << RESET << std::endl;
 
+        /* Display available alphabets (keyboard view) */
         showAlphabets();
 
-        char guess_letter;
-        std::cout << "\tGuess a letter: ";
-        std::cin >> guess_letter;
+        /* ===== WORD GUESS INPUT (NEW LOGIC) ===== */
 
-        if (!std::isalpha(guess_letter)) {
-            std::cout << "\tPlease enter a valid letter!\n";
+        std::string guessed_word;
+        std::cout << YELLOW << "\tGuess a word: " << BG_WHITE << BLACK << " \b" << RESET;
+        std::cin >> guessed_word;
+
+        /* Validate that the guessed word contains only alphabets */
+        bool valid = true;
+        for (char &c : guessed_word) {
+            if (!std::isalpha(c)) {
+                valid = false;
+                break;
+            }
+            c = std::toupper(c);  // normalize to uppercase
+        }
+
+        /* If invalid input, ask again */
+        if (!valid) {
+            std::cout << BOLD << RED << "\tPlease enter alphabets only!\n" << RESET;
             continue;
         }
 
-        guess_letter = std::toupper(guess_letter);
+        /* ===== SUBSTRING CHECK ===== */
+        bool is_substring = false;
+        if(guessed_word.length() < actual_word.length()) {
+            /* iterate over the actual string till (word.length - guess.length) */
+            for(int i=0; i<=actual_word.length()-guessed_word.length(); i++) {
+                /* take a substring of length equal to guess_word */
+                std::string sub_str = actual_word.substr(i, guessed_word.length());
 
-        if (user_guess.find(guess_letter) != std::string::npos) {
-            std::cout << "\tYou already guessed it!\n";
-            continue;
+                /* if any of the substrings matches to the guess_word, accept it */
+                if(guessed_word == sub_str) {
+                    is_substring = true;
+                    break;
+                }
+            }
+        } else if(guessed_word.length() == actual_word.length()){
+            is_substring = (actual_word == guessed_word);
         }
 
-        if (dummy_word.find(guess_letter) == std::string::npos) {
-            std::cout << "\tOops! Wrong guess.\n";
+        /* If guessed word is NOT a substring of actual word */
+        if (!is_substring) {
+            std::cout << BOLD << RED << "\tOops! Wrong guess.\n" << RESET;
+
+            /* Increase failed try count and draw figure */
             if (figure) {
                 figure->drawFigure(++failed_user_try);
             } else {
                 ++failed_user_try;
             }
-        } else {
-            user_guess.push_back(guess_letter);
+        }
+        else {
+            /* ===== (GUESS LOGIC) ===== */
+
+            /* Add newly guessed characters to user_guess */
+            for (char c : guessed_word) {
+                if (user_guess.find(c) == std::string::npos) {
+                    user_guess.push_back(c);
+                }
+            }
+
+            /* If all unique characters are guessed, player wins */
             if (user_guess.size() == dummy_word.size()) {
-                /* displaying the complete guessed word */
+
+                /* Display full word on success */
+                std::cout << CYAN;
                 std::cout << "\n\tWord: ";
-                for(char c : actual_word)
+                for (char c : actual_word)
                     std::cout << c << ' ';
-                std::cout << std::endl;
+                std::cout << std::endl << RESET;
+
+                figure->winFigure();
 
                 return this->win = true;
             }
         }
 
-        std::cout << "\n\tYou have to guess a: " << game.getKeyword() << std::endl;
+        /* Repeat category prompt for next iteration */
+        std::cout << MAGENTA << "\n\tYou have to guess" << YELLOW << "\n\tKEYWORD: " <<CYAN << game.getKeyword() << std::endl << RESET;
     }
 
+    /* If maximum failed tries reached, player loses */
     return this->win = false;
 }

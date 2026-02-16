@@ -11,60 +11,86 @@ HangmanFigure::~HangmanFigure() {}
 void HangmanFigure::drawFigure(int tries) {
 
     // by default header lines
-    std::cout << "\t+-------+" << std::endl;
-    std::cout << "\t||\t|" << std::endl;
+    if(tries < 6) {
+        std::cout <<RED << "\t+-------+" << std::endl;
+        std::cout << "\t||\t|" << std::endl;
+    
+        // head line
+        std::cout << "\t||\t"; std::cout << ((tries >= 1) ? YELLOW "O" : "") << RED << std::endl;
+    
+        // arm line
+        if(tries == 2) {
+            std::cout << "\t||      |" << std::endl;
+        } else if(tries == 3) {
+            std::cout << "\t||     /|" << std::endl;
+        } else if(tries >= 4) {
+            std::cout << "\t||     /|\\" << std::endl;
+        }
+    
+        // leg line
+        if(tries == 5)
+            std::cout << "\t||     /" << std::endl;
 
-    // head line
-    std::cout << "\t||\t"; std::cout << ((tries >= 1) ? "O" : "") << std::endl;
+        std::cout << "\t||" << std::endl;
+        std::cout << "\t||" << std::endl;
+        std::cout << "===============================" << std::endl;
+        std::cout << "you have " << GREEN << (6 - tries) << RED << " chances left." << RESET << std::endl;
 
-    // arm line
-    if(tries == 2) {
-        std::cout << "\t||      |" << std::endl;
-    } else if(tries == 3) {
-        std::cout << "\t||     /|" << std::endl;
-    } else if(tries >= 4) {
-        std::cout << "\t||     /|\\" << std::endl;
+    }else {
+
+        /* falling effect */
+        std::cout << RED << "\t+-------+" << std::endl;
+        std::cout << "\t||\t|" << std::endl;
+        std::cout << "\t||\t" << YELLOW << "0" << RED;
+        std::cout << "\r\t||           \r" << std::endl;
+
+        std::cout << "\t||\tX";
+        std::cout << "\r\t||           \r";
+
+
+        Sleep(200);
+        std::cout << "\t||    *****";
+        Sleep(200);
+        std::cout << "\r\t||           \r";
+
+        
+        Sleep(200);
+        std::cout << "\t||" << std::endl;
+        std::cout << "\t||    *****";
+        Sleep(200);
+        std::cout << "\r\t||             \r";
+
+        
+        Sleep(200);
+        std::cout << "\t||" << std::endl;
+        std::cout << "\t||    *****";
+        Sleep(200);
+        std::cout << "\r\t||             \r";
+
+        
+        Sleep(200);
+        std::cout << "\t||     <^> " << std::endl;
+        std::cout << "\t||   ___|___" << std::endl;
+        std::cout << "\t||  |       |" << std::endl;
+        std::cout << "\t||  | (RIP) |" << std::endl;
+        std::cout << "\t||  |       |" << std::endl;
+        std::cout << "============^=======^===============" << RESET << std::endl;
+        return;
     }
+}
 
-    // leg line
-    if(tries == 5)
-        std::cout << "\t||     /" << std::endl;
-    else if(tries >= 6)
-        std::cout << "\t||     / \\" << std::endl;
-
-    // by default footer lines
+void HangmanFigure::winFigure() {
+    std::cout << BOLD << GREEN << "\t+--------+" << std::endl;
+    std::cout << "\t||\t |" << std::endl;
+    std::cout << "\t||" RED "\t X" GREEN << std::endl;
     std::cout << "\t||" << std::endl;
     std::cout << "\t||" << std::endl;
-    std::cout << "===============================" << std::endl;
-    int chances = (tries <= 6) ? (6 - tries) : 0;
-    std::cout << "you have " << chances << " chances left." << std::endl;
+    std::cout << "\t||\t 0 --> |THANKS|" << std::endl;
+    std::cout << "\t||\t/|\\" << std::endl;
+    std::cout << "\t||\t/ \\" << std::endl;
+    std::cout << "===============================" << RESET << std::endl;
 }
 
 std::string HangmanFigure::getFigureClassName() {
     return "HangmanFigure";
 }
-
-// int main() {
-//     Figure *f = new HangmanFigure();
-//     f->drawFigure(1);
-//     std::cout << std::endl;
-
-//     f->drawFigure(2);
-//     std::cout << std::endl;
-
-//     f->drawFigure(3);
-//     std::cout << std::endl;
-
-//     f->drawFigure(4);
-//     std::cout << std::endl;
-
-//     f->drawFigure(5);
-//     std::cout << std::endl;
-
-//     f->drawFigure(6);
-//     std::cout << std::endl;
-
-//     delete f;
-
-//     return 0;
-// }
