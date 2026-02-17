@@ -86,11 +86,12 @@ bool Level::play() {
     /* Counter to track wrong guesses */
     int failed_user_try = 0;
 
-    /* Display keyword/category once at the start */
-    std::cout << MAGENTA << "\n\tYou have to guess a:" << YELLOW << "\n\tKEYWORD: " <<CYAN << game.getKeyword() << std::endl << RESET;
+    
 
     /* Main game loop: runs until max failed tries */
     while (failed_user_try <= 5) {
+        /* Display keyword/category once at the start */
+        std::cout << MAGENTA << "\n\tYou have to guess a:" << YELLOW << "\n\tKEYWORD: " <<CYAN << game.getKeyword() << std::endl << RESET;
 
         /* Display hint */
         std::cout << YELLOW << "\tHINT:\t " << CYAN << game.getHint() << std::endl << RESET;
@@ -188,10 +189,11 @@ bool Level::play() {
 
                 return this->win = true;
             }
+            /* Repeat category prompt for next iteration */
+            // std::cout << MAGENTA << "\n\tYou have to guess" << YELLOW << "\n\tKEYWORD: " <<CYAN << game.getKeyword() << std::endl << RESET;
         }
 
-        /* Repeat category prompt for next iteration */
-        std::cout << MAGENTA << "\n\tYou have to guess" << YELLOW << "\n\tKEYWORD: " <<CYAN << game.getKeyword() << std::endl << RESET;
+        
     }
 
     /* If maximum failed tries reached, player loses */
