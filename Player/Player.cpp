@@ -33,7 +33,7 @@ std::string Player::generateGuestEmail() {
 }
 
 bool Player::isValidEmail(const std::string &email) {
-    const std::regex pattern(R"(^[A-Za-z0-9_.-]+@gmail\.com$)");
+    const std::regex pattern(R"([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)");
 
     return std::regex_match(email, pattern);
 }
@@ -88,7 +88,7 @@ std::size_t Player::getTotalPlayerCount() {
 
 std::ostream& operator<<(std::ostream &out, const Player &player) {
     out << "\n\t\tPlayer name: " << player.name << std::endl
-        << "\t\tPlayer email " << player.email << std::endl
+        << "\t\tPlayer email: " << player.email << std::endl
         << "\t\tScore: " << player.completed_level_count << std::endl;
     return out;
 }
